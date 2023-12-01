@@ -1,44 +1,31 @@
-# UMFT DASTURIY INJINERLAR UCHUN C++ dasturlash tilidan masalalar javobi
-
-
-'''
-
 #include <iostream>
-#include <cmath>
 
-using namespace std;
+// Funksiya N sonining palindrom bo'lishini tekshiradi
+bool IsPalindrom(int N) {
+    int originalNum = N;
+    int reversedNum = 0;
 
-int DigitN(int K, int N) {
-    int numDigits = floor(log10(K)) + 1;
-
-    if (N > numDigits) {
-        return -1;
+    while (N > 0) {
+        int digit = N % 10;
+        reversedNum = reversedNum * 10 + digit;
+        N /= 10;
     }
 
-    int digit = 0;
-    for (int i = 0; i < N; i++) {
-        digit = K % 10;
-        K /= 10;
-    }
-
-    return digit;
+    return originalNum == reversedNum;
 }
 
 int main() {
-    int K, N;
+    int palindromCount = 0;
+    
+    // 5 ta sondan nechtasi palindrom ekanligini aniqlovchi dastur
+    for (int i = 10000; i < 100000; ++i) {
+        if (IsPalindrom(i)) {
+            std::cout << i << " palindrom son.\n";
+            palindromCount++;
+        }
+    }
 
-    cout << "Enter the number K: ";
-    cin >> K;
-
-    cout << "Enter the digit position N: ";
-    cin >> N;
-
-    int digit = DigitN(K, N);
-
-    cout << "The " << N << "-th digit of K is: " << digit << endl;
+    std::cout << "Topilgan palindrom sonlar soni: " << palindromCount << std::endl;
 
     return 0;
 }
-
-
-'''
